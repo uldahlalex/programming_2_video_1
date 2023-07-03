@@ -1,4 +1,5 @@
-﻿using infrastructure.Repositories;
+﻿using System.ComponentModel.DataAnnotations;
+using infrastructure.Repositories;
 
 namespace service;
 public class BookService
@@ -15,4 +16,14 @@ public class BookService
         return _bookRepository.GetBooksForFeed();
     }
 
+    public object CreateBook(string title)
+    {
+        
+        
+        if (true)
+        {
+            throw new ValidationException("Book with title " + title + " already exists");
+        }
+        return new { title = title };
+    }
 }
