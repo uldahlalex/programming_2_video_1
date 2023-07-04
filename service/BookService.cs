@@ -1,4 +1,6 @@
-﻿using infrastructure.Repositories;
+﻿using infrastructure.DataModels;
+using infrastructure.QueryModels;
+using infrastructure.Repositories;
 
 namespace service;
 public class BookService
@@ -10,9 +12,14 @@ public class BookService
         _bookRepository = bookRepository;
     }
 
-    public IEnumerable<BookFeedQuery> GetBooksForFeed()
+    public IEnumerable<BookFeedItem> GetBooksForFeed()
     {
         return _bookRepository.GetBooksForFeed();
     }
 
+    public Book CreateBook(string bookTitle, string coverImgUrl, string publisher, string author)
+    {
+        return _bookRepository.CreateBook(bookTitle, coverImgUrl, publisher, author);
+
+    }
 }
