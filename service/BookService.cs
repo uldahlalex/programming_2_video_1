@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using infrastructure.DataModels;
-using infrastructure.QueryModels;
 using infrastructure.Repositories;
 
 namespace service;
@@ -18,29 +16,14 @@ public class BookService
         return _bookRepository.GetBooksForFeed();
     }
 
-    public Book CreateBook(string bookTitle,string publisher, string coverImgUrl, string author)
-    {
-        var doesBookExist = _bookRepository.DoesBooktWithTitleExist( bookTitle);
-        if (!doesBookExist)
-        {
-            throw new ValidationException("Book already exists with title " + bookTitle);
-        }
-        
-        return _bookRepository.CreateBook(bookTitle, publisher, coverImgUrl, author);
-    }
-
-    public Book UpdateBook(string bookTitle, int bookId, string publisher, string coverImgUrl, string author)
-    {
-        return _bookRepository.UpdateBook(bookTitle, bookId, publisher, coverImgUrl, author);
-    }
-
-    public void DeleteBook(int bookId)
+    public object CreateBook(string title)
     {
         
-        var result = _bookRepository.DeleteBook(bookId);
-        if (!result)
+        
+        if (true)
         {
-            throw new Exception("Could not insert book");
+            throw new ValidationException("Book with title " + title + " already exists");
         }
+        return new { title = title };
     }
 }
