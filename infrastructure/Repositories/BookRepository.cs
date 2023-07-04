@@ -1,6 +1,4 @@
 using Dapper;
-using infrastructure.DataModels;
-using infrastructure.QueryModels;
 using Npgsql;
 
 namespace infrastructure.Repositories;
@@ -14,25 +12,30 @@ public class BookRepository
         _dataSource = datasource;
     }
 
-    public IEnumerable<BookFeedItem> GetBooksForFeed()
+    public IEnumerable<BookFeedQuery> GetBooksForFeed()
     {
         string sql = $@"
-SELECT book_id as {nameof(BookFeedItem.BookId)},
-       book_title as {nameof(BookFeedItem.BookTitle)},
-        author as {nameof(BookFeedItem.Author)},
-        cover_img_url as {nameof(BookFeedItem.CoverImgUrl)}
+SELECT book_id as {nameof(BookFeedQuery.BookId)},
+       book_title as {nameof(BookFeedQuery.BookTitle)},
+        author as {nameof(BookFeedQuery.Author)},
+        cover_img_url as {nameof(BookFeedQuery.CoverImgUrl)}
 FROM library_app.books;
 ";
         using (var conn = _dataSource.OpenConnection())
         {
-            return conn.Query<BookFeedItem>(sql);
+            return conn.Query<BookFeedQuery>(sql);
         }
     }
 
 
-    public Book CreateBook(string bookTitle, string coverImgUrl, string publisher, string author)
-    {
-        return new Book();
-    }
+}
+
+public class BookFeedQuery
+{
+    public string BookTitle { get; set; }
+    public int BookId { get; set; }
+    public string CoverImgUrl { get; set; }
+    public string Author { get; set; }
+
 }
 
