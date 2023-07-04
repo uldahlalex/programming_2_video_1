@@ -1,6 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using api.CustomDataAnnotations;
-using api.Filters;
 using infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using service;
@@ -35,7 +33,6 @@ public class BookController : ControllerBase
     }
 
     [HttpPost]
-    [ValidateModel]
     [Route("/api/book")]
     public ResponseDto Post([FromBody]CreateBookRequestDto dto)
     {
@@ -61,9 +58,6 @@ public class CreateBookRequestDto
 {
     [MinLength(5)]
     public string BookTitle { get; set; }
-    
-    [ValueIsOneOf(new string[] {"publisher_1", "publisher_2"}, "Must be one one ...")]
-    public string Publisher { get; set; }
     
 }
 

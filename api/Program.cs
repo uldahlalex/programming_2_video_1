@@ -1,4 +1,3 @@
-using api.Middleware;
 using infrastructure;
 using infrastructure.Repositories;
 using service;
@@ -44,7 +43,6 @@ app.UseCors(options =>
 });
 
 
-
 app.MapControllers();
-app.UseMiddleware<GlobalExceptionHandler>();
+
 app.Run();
